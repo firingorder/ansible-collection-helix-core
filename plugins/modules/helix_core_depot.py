@@ -124,6 +124,14 @@ options:
         type: str
         aliases:
             - p4charset
+    fingerprint:
+        default: none
+        description:
+            - The SSL fingerprint that matches the one returned from the Perforce server.
+        required: false
+        type: str
+        aliases:
+            - p4fingerprint
 
 author:
     - Asif Shaikh (@ripclawffb)
@@ -175,6 +183,7 @@ def run_module():
         user=dict(type='str', required=True, aliases=['p4user'], fallback=(env_fallback, ['P4USER'])),
         password=dict(type='str', required=True, aliases=['p4passwd'], fallback=(env_fallback, ['P4PASSWD']), no_log=True),
         charset=dict(type='str', default='none', aliases=['p4charset'], fallback=(env_fallback, ['P4CHARSET'])),
+        fingerprint=dict(type=str, default='', aliases=['p4fingerprint'], fallback=(env_fallback, ["P4FINGERPRINT"]), no_log=True),
     )
 
     result = dict(
