@@ -16,4 +16,5 @@ ripclawffb.helix_core
 * :ref:`ripclawffb.helix_core.helix_core_server <ansible_collections.ripclawffb.helix_core.helix_core_server_module>` -- This module will allow you to manage server spec on Perforce Helix Core
 * :ref:`ripclawffb.helix_core.helix_core_stream <ansible_collections.ripclawffb.helix_core.helix_core_stream_module>` -- This module will allow you to manage streams on Perforce Helix Core
 * :ref:`ripclawffb.helix_core.helix_core_user <ansible_collections.ripclawffb.helix_core.helix_core_user_module>` -- This module will allow you to manage users on Perforce Helix Core
+* :ref:`ripclawffb.helix_core.helix_core_password <ansible_collections.ripclawffb.helix_core.helix_core_password_module>` -- This module will allow you to manage user passwords on Perforce Helix Core
 
