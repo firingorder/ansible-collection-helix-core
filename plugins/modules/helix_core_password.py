@@ -133,7 +133,7 @@ def run_module():
     module_args = dict(
         name=dict(type='str', required=True, fallback=(env_fallback, ['P4USER'])),
         oldpassword=dict(type='str', default='', required=False, fallback=(env_fallback, ['P4PASSWD']), no_log=True),
-        newpassword=dict(type='str', default='', required=True, no_log=True),
+        newpassword=dict(type='str', required=True, no_log=True),
         server=dict(type='str', required=True, aliases=['p4port'], fallback=(env_fallback, ['P4PORT'])),
         user=dict(type='str', required=True, aliases=['p4user'], fallback=(env_fallback, ['P4USER'])),
         password=dict(type='str', required=True, aliases=['p4passwd'], fallback=(env_fallback, ['P4PASSWD']), no_log=True),
