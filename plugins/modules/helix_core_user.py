@@ -139,7 +139,6 @@ EXAMPLES = '''
     user: bruno
     charset: none
     password: ''
-    trust: ''
 
 # Delete a user
 - name: Delete a user
@@ -150,7 +149,6 @@ EXAMPLES = '''
     user: bruno
     charset: none
     password: ''
-    trust: ''
 '''
 
 RETURN = r''' # '''
