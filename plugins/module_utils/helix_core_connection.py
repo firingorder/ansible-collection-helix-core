@@ -37,7 +37,7 @@ def helix_core_connect(module, script_name):
         p4.connect()
         
         if 'ssl' in p4.port:
-            p4.run_trust("-f", "-i", module.params['fingerprint'])
+            p4.run_trust("-i", module.params['fingerprint'])
         
         p4.run_login()
 
