@@ -3,6 +3,7 @@ This module is used to make connections to Perforce Helix
 """
 
 from __future__ import (absolute_import, division, print_function)
+import os
 import traceback
 __metaclass__ = type
 
@@ -27,12 +28,19 @@ def helix_core_connect(module, script_name):
     try:
         p4 = P4()
         p4.prog = script_name
+        
         p4.port = module.params['server']
         p4.user = module.params['user']
         p4.password = module.params['password']
         p4.charset = module.params['charset']
+        
         p4.connect()
+        
+        if 'ssl' in p4.port:
+            p4.run_trust("-i", os.getenv("P4FINGERPRINT"))
+        
         p4.run_login()
+
         if p4.connected() is not True:
             module.fail_json(msg="Unable to connect to Helix")
         return p4
