@@ -49,6 +49,16 @@ options:
             - The name of the user that needs to be managed
         required: true
         type: str
+    type:
+        description:
+            - The type of the user that needs to be managed.
+            required: false
+            type: str
+    initialpassword:
+        description:
+            - The initial password to be set for the user that needs to be managed.
+            required: false
+            type: str
     authmethod:
         choices:
             - perforce
@@ -100,9 +110,18 @@ options:
         type: str
         aliases:
             - p4charset
+    fingerprint:
+        default: none
+        description:
+            - The SSL fingerprint that matches the one returned from the Perforce server.
+        required: false
+        type: str
+        aliases:
+            - p4fingerprint
 
-author:
+authors:
     - Asif Shaikh (@ripclawffb)
+    - Luke James (@luke-james)
 '''
 
 EXAMPLES = '''
@@ -112,10 +131,13 @@ EXAMPLES = '''
     state: present
     name: new_user
     email: new_user@perforce.com
+    type: standard
+    initialpassword: notapassword
     server: '1666'
     user: bruno
     charset: none
     password: ''
+    trust: ''
 
 # Delete a user
 - name: Delete a user
@@ -126,6 +148,7 @@ EXAMPLES = '''
     user: bruno
     charset: none
     password: ''
+    trust: ''
 '''
 
 RETURN = r''' # '''
@@ -144,10 +167,13 @@ def run_module():
         authmethod=dict(type='str', default='perforce', choices=['perforce', 'ldap']),
         email=dict(type='str'),
         fullname=dict(type='str'),
+        type=dict(type='str', default='standard', choices=['standard', 'operator', 'service']),
+        initialpassword=dict(type='str', default=''),
         server=dict(type='str', required=True, aliases=['p4port'], fallback=(env_fallback, ['P4PORT'])),
         user=dict(type='str', required=True, aliases=['p4user'], fallback=(env_fallback, ['P4USER'])),
         password=dict(type='str', required=True, aliases=['p4passwd'], fallback=(env_fallback, ['P4PASSWD']), no_log=True),
         charset=dict(type='str', default='none', aliases=['p4charset'], fallback=(env_fallback, ['P4CHARSET'])),
+        fingerprint=dict(type=str, default='none', aliases=['p4fingerprint'], fallback=(env_fallback, ["P4FINGERPRINT"])),
         serverid=dict(type='str', default='any')
     )
 
@@ -174,6 +200,10 @@ def run_module():
         # if email is not given, set a default
         if module.params['email'] is None:
             module.params['email'] = "{0}@{1}".format(module.params['name'], gethostname())
+
+        # if type is not given, set a default
+        if module.params['type'] is None:
+            module.params['type'] = "standard"
 
         if module.params['state'] == 'present':
             if 'Access' in p4_user_spec:
