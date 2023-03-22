@@ -52,11 +52,13 @@ options:
     type:
         description:
             - The type of the user that needs to be managed.
+            - This value can only be given on creation.
             required: false
             type: str
     initialpassword:
         description:
             - The initial password to be set for the user that needs to be managed.
+            - This value can only be given on creation.
             required: false
             type: str
     authmethod:
@@ -230,6 +232,8 @@ def run_module():
                     p4_user_spec["AuthMethod"] = module.params['authmethod']
                     p4_user_spec["Email"] = module.params['email']
                     p4_user_spec["FullName"] = module.params['fullname']
+                    p4_user_spec["Type"] = module.params['type']
+                    p4_user_spec["Password"] = module.params['initialpassword']
                     p4.save_user(p4_user_spec, "-f")
 
                 result['changed'] = True
