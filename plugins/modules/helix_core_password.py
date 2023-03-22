@@ -15,7 +15,7 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = '''
 ---
-module: helix_core_user
+module: helix_core_password
 
 short_description: This module will allow you to manage users on Perforce Helix Core
 
