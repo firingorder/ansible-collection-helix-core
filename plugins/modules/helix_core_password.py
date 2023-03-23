@@ -156,7 +156,7 @@ def run_module():
     try:
         # modify password for a given user
         if module.params['oldpassword'] != '':
-            p4.run("passwd", "-O", module.params['oldpassword'], "-P", module.params['newpassword'], module.params['name'])
+            p4.run_password("passwd", "-O", module.params['oldpassword'], "-P", module.params['newpassword'], module.params['name'])
         else:    
             p4.run("passwd", "-P", module.params['newpassword'], module.params['name'])
         result['changed'] = True
