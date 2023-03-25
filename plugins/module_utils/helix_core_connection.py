@@ -34,13 +34,7 @@ def helix_core_connect(module, script_name):
         p4.password = module.params['password']
         p4.charset = module.params['charset']
         
-        p4.connect()
-        
-        if 'ssl' in p4.port and module.params['fingerprint'] != '':
-            # A client may not need to run the trust command if the servers' certificate can be validated.
-            #p4.run_trust("-i", module.params['fingerprint'])
-            pass
-        
+        p4.connect()        
         p4.run_login()
 
         if p4.connected() is not True:
