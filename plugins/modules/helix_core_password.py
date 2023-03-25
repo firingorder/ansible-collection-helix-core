@@ -132,7 +132,7 @@ def run_module():
     # define available arguments/parameters a user can pass to the module
     module_args = dict(
         name=dict(type='str', required=True, fallback=(env_fallback, ['P4USER'])),
-        oldpassword=dict(type='str', default='', required=False, fallback=(env_fallback, ['P4PASSWD']), no_log=True),
+        oldpassword=dict(type='str', required=False, fallback=(env_fallback, ['P4PASSWD']), no_log=True),
         newpassword=dict(type='str', required=True, no_log=True),
         server=dict(type='str', required=True, aliases=['p4port'], fallback=(env_fallback, ['P4PORT'])),
         user=dict(type='str', required=True, aliases=['p4user'], fallback=(env_fallback, ['P4USER'])),
@@ -155,10 +155,7 @@ def run_module():
 
     try:
         # modify password for a given user
-        if module.params['oldpassword'] != '':
-            p4.run_password("passwd", "-O", module.params['oldpassword'], "-P", module.params['newpassword'], module.params['name'])
-        else:    
-            p4.run("passwd", "-P", module.params['newpassword'], module.params['name'])
+        p4.run_password("passwd", "-O", module.params['oldpassword'], "-P", module.params['newpassword'], module.params['name'])
         result['changed'] = True
 
     except Exception as e:
