@@ -155,7 +155,7 @@ def run_module():
 
     try:
         # modify password for a given user
-        p4.run_password("passwd", "-O", module.params['oldpassword'], "-P", module.params['newpassword'], module.params['name'])
+        p4.run_password(module.params['oldpassword'], module.params['newpassword'], module.params['name'])
         result['changed'] = True
 
     except Exception as e:
