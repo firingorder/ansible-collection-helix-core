@@ -91,9 +91,9 @@ EXAMPLES = '''
 - name: Create a typemap
   helix_core_typemap:
     content: |
-    Typemap:
-            binary //....pdf
-            binary //....rtf
+        Typemap:
+                binary //....pdf
+                binary //....rtf
     server: '1666'
     user: bruno
     charset: none
@@ -132,7 +132,7 @@ def run_module():
     p4 = helix_core_connect(module, 'ansible')
 
     try:
-        p4.run("typemap", "-i", module.params['content'])
+        p4.save_typemap(module.params['content'])
         result['changed'] = True
 
     except Exception as e:
